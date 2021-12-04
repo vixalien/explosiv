@@ -1,24 +1,18 @@
-const {
-	join,
-	resolve,
-	dirname,
-	posix: { join: posixJoin, normalize: posixNormalize },
-} = require('path')
+const { join, resolve, dirname, posix } = require('path')
 const { ensureFile, writeFile, remove } = require('fs-extra')
-const { startService } = require('esbuild')
+const esbuild = require('esbuild')
 const fg = require('fast-glob')
 const newDocument = require('./document')
 
 let buildJS = async (indir, outdir) => {
 	const basedir = resolve(outdir)
-	const service = await startService()
 	global.headContents = []
 
 	try {
 		// Part 5: write Into DOM
 		let writePageDOM = async (pageDOM, path) => {
 			document = newDocument(indir, outdir)
-			const rootEl = document.getElementsByClassName('root')[0] || document.body;
+			const rootEl = document.getElementsByClassName('root')[0] || document.body
 
 			if (Array.isArray(pageDOM)) {
 				pageDOM.forEach((singleEl) => {
@@ -53,10 +47,10 @@ let buildJS = async (indir, outdir) => {
 		}
 
 		// Part 1: transpile files
-		const jsFiles = await fg(posixJoin(indir, '/**/*.js'))
+		const jsFiles = await fg(posix.join(indir, '/**/*.{ts,js,jsx,tsx}'))
 
 		const services = jsFiles.map(async (file) =>
-			service.build({
+			esbuild.build({
 				entryPoints: [file],
 				outfile: join(basedir, file),
 				bundle: true,
@@ -64,29 +58,31 @@ let buildJS = async (indir, outdir) => {
 				format: 'cjs',
 				loader: {
 					'.js': 'jsx',
+					'.ts': 'tsx',
 				},
 				jsxFactory: 'Explosiv.el',
 				jsxFragment: 'Explosiv.fragment',
-				inject: [resolve(__dirname, './explosiv.shim.js')],
+				inject: [resolve(__dirname, '../explosiv.shim.js')],
 			})
 		)
 
 		await Promise.all(services)
 
 		// Part 2: Handle configuration
-		let pages = await fg(posixJoin(outdir, indir, '/**/*.js'))
+		let pages = await fg(posix.join(outdir, indir, '/**/*.{ts,js,jsx,tsx}'))
 		pages = pages.filter(
-			(page) => page !== posixJoin(outdir, indir, '_document.js')
+			(page) => page !== posix.join(outdir, indir, '_document.js')
 		)
 
 		for (let page of pages) {
 			const fileExports = require(resolve(page))
 
-			const filePath = posixNormalize(page)
+			const filePath = posix
+				.normalize(page)
 				.split('/')
-				.slice(1 + posixNormalize(indir).split('/').length)
+				.slice(1 + posix.normalize(indir).split('/').length)
 				.join('/')
-				.slice(0, -3)
+				.replace(/\..+$/, '')
 
 			// Part 4: write the component
 			let writeComponent = async (path = null) => {
@@ -100,12 +96,8 @@ let buildJS = async (indir, outdir) => {
 				else src = filePath
 
 				if (src.endsWith('/index') || src == 'index') src = src + '.html'
-				
-				src = join(
-					basedir,
-					src,
-					src.endsWith('html') ? '' : 'index.html'
-				)
+
+				src = join(basedir, src, src.endsWith('html') ? '' : 'index.html')
 
 				await writePageDOM(fileExports.default(props), src)
 			}
@@ -129,9 +121,6 @@ let buildJS = async (indir, outdir) => {
 		throw err
 	} finally {
 		await remove(join(basedir, indir))
-
-		// The child process can be explicitly killed when it's no longer needed
-		service.stop()
 	}
 }
 

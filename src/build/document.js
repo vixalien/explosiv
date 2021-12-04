@@ -18,6 +18,11 @@ let LoadCustomDocument = (document, indir, outdir) => {
 		const bodyEl = customDocument.getElementsByTagName('body')[0]
 		const headEl = customDocument.getElementsByTagName('head')[0]
 
+		// Copy className
+		document.getElementsByTagName('html')[0].className =
+			customDocument.className
+		document.body.className = bodyEl.className
+
 		Object.entries(customDocument._attributes[null]).forEach(([key, value]) => {
 			document
 				.getElementsByTagName('html')[0]

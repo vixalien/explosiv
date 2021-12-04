@@ -16,7 +16,9 @@ const { removeSync } = require('fs-extra')
 
 const cli = sade('explosiv')
 
-cli.version(JSON.parse(readFileSync(resolve(__dirname, '..', 'package.json'))).version)
+cli.version(
+	JSON.parse(readFileSync(resolve(__dirname, '..', 'package.json'))).version
+)
 
 cli
 	.command('dev')
@@ -68,7 +70,13 @@ function explosivServe({ dir = 'out', port = 3000 }, dev = false) {
 		dev: true,
 	})
 
-	let server = connect().use(compression()).use(morgan('dev')).use(assets)
+	let server = connect()
+
+	if (!dev) {
+		server.use(compression())
+	}
+
+	server.use(morgan('dev')).use(assets)
 
 	http.createServer(server).listen(process.env.PORT || port, (err) => {
 		if (err) throw err

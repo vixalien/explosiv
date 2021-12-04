@@ -18,23 +18,23 @@
 	"author": "",
 	"license": "MIT",
 	"dependencies": {
-		"chokidar": "^3.5.1",
+		"chokidar": "^3.5.2",
 		"compression": "^1.7.4",
 		"connect": "^3.7.0",
-		"dotenv": "^8.2.0",
-		"esbuild": "^0.8.42",
-		"fast-glob": "^3.2.5",
-		"fs-extra": "^9.1.0",
+		"dotenv": "^10.0.0",
+		"esbuild": "^0.13.12",
+		"fast-glob": "^3.2.7",
+		"fs-extra": "^10.0.0",
 		"min-document": "^2.19.0",
 		"morgan": "^1.10.0",
-		"ora": "^4.1.1",
-		"postcss": "^7.0.35",
+		"ora": "^5.4.1",
+		"postcss": "^8.3.11",
 		"sade": "^1.7.4",
-		"sirv": "^1.0.11"
+		"sirv": "^1.0.18"
 	},
 	"devDependencies": {
-		"esbuild-register": "^1.2.1",
-		"uvu": "^0.3.5"
+		"esbuild-register": "^3.0.0",
+		"uvu": "^0.5.2"
 	},
 	"repository": {
 		"type": "git",

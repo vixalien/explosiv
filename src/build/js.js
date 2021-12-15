@@ -22,13 +22,10 @@ let buildJS = async (indir, outdir) => {
 				rootEl.appendChild(pageDOM)
 			}
 
-			// Add elements at the top of head
+			// Add elements at the bottom of head
 			// TODO: Add better head function
 			for (var i = global.headContents.length - 1; i >= 0; i--) {
-				document.head.insertBefore(
-					global.headContents[i],
-					document.head.childNodes[0]
-				)
+				document.head.appendChild(global.headContents[i]);
 			}
 
 			await ensureFile(path)
@@ -62,7 +59,7 @@ let buildJS = async (indir, outdir) => {
 				},
 				jsxFactory: 'Explosiv.el',
 				jsxFragment: 'Explosiv.fragment',
-				inject: [resolve(__dirname, '../explosiv.shim.js')],
+				inject: [resolve(__dirname, './explosiv.shim.js')],
 			})
 		)
 

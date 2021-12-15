@@ -1,6 +1,6 @@
 {
 	"name": "explosiv",
-	"version": "2.6.1",
+	"version": "2.6.2",
 	"description": "Simple and powerful JSX Static Site Generator.",
 	"main": "./dist/jsx-runtime.js",
 	"bin": {

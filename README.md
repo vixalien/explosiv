@@ -20,7 +20,7 @@ npm i explosiv -D
 
 Explosiv allow you to build static sites written in JSX. To get started, create a file called `pages/index.js`:
 
-```js
+```jsx
 // pages/index.js
 export default () => (
   <main>
@@ -154,7 +154,7 @@ Please read the [notes] to see Improvements over Dhow, and differences with Reac
 
 **With Fragment tags**
 
-```js
+```jsx
 // pages/fragment.js
 export default () => (
   <main>
@@ -171,7 +171,7 @@ export default () => (
 
 **`style` can either be an Object or String**
 
-```js
+```jsx
 // pages/style-prop.js
 export default () => (
   <main>
@@ -190,7 +190,7 @@ export default () => (
 
 The `className` prop will export a `class` HTML attribute.
 
-```js
+```jsx
 // pages/className-is-same-as-class.js
 export default () => (
   <main>
@@ -211,7 +211,7 @@ export default () => (
 
 `Head` will export it's children into the `<head>` of HTML. Useful for SEO!
 
-```js
+```jsx
 // pages/Head.js
 export default () => (
   <main>
@@ -231,7 +231,7 @@ export default () => (
 
 If you export `getProps`, it will be called at build time to get any data you may require. That data will be passed into the main export of your file.
 
-```js
+```jsx
 // pages/onepost.js
 export default (data) => (
   <main>
@@ -260,7 +260,7 @@ export getProps = () => {
 
 If you name your file like `[slug].js`, (i.e with square brackets) and export `getPaths`, it will be called at build time to get all possible slugs.
 
-```js
+```jsx
 // pages/[posts].js
 export default (data) => (
   <main>
@@ -289,7 +289,7 @@ export getPaths = () => {
 
 If you create a file `_document.js` in your pages' root (i.e `pages/_document.js`), it will be used as a wrapper for all your documents. Actual page data will be rendered in the first element with class `root` or `<body/>`.
 
-```js
+```jsx
 // pages/_document.js
 export default () => (
   <>
@@ -305,7 +305,7 @@ export default () => (
 )
 ```
 
-```js
+```jsx
 // pages/index.js
 export default () => (
   <main>

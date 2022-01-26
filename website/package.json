@@ -15,7 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "explosiv": "latest",
-    "marked": "^2.0.0",
+    "marked": "^4.0.10",
     "prismjs": "^1.23.0"
   },
   "devDependencies": {

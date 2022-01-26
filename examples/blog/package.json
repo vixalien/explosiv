@@ -13,7 +13,7 @@
 	"dependencies": {
 		"explosiv": "latest",
 		"gray-matter": "^4.0.2",
-		"marked": "^2.0.0",
-		"prismjs": "^1.21.0"
+		"marked": "^4.0.10",
+		"prismjs": "^1.26.0"
 	}
 }

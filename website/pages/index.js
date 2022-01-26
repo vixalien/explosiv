@@ -1,7 +1,7 @@
 import promises from 'fs/promises'
 const { readFile, readdir } = promises;
 import { join } from 'path'
-import marked from 'marked'
+import { marked } from 'marked'
 import prism from 'prismjs'
 import { version } from '../package.json'
 

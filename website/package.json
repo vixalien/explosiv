@@ -14,11 +14,11 @@
   "author": "vixalien",
   "license": "ISC",
   "dependencies": {
-    "explosiv": "latest",
-    "marked": "^2.0.0",
+    "explosiv": "^2.6.3",
+    "marked": "^4.0.10",
     "prismjs": "^1.23.0"
   },
   "devDependencies": {
-    "cssnano": "^4.1.10"
+    "cssnano": "^5.0.16"
   }
 }

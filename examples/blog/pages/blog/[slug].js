@@ -2,8 +2,8 @@ import Explosiv, { Head } from 'explosiv'
 import { readFile, readdir } from 'fs/promises'
 import { join } from 'path'
 import matter from 'gray-matter'
-import marked from 'marked'
-import prism from 'prismjs'
+import { marked } from 'marked'
+import Prism from 'prismjs'
 
 const Post = ({
 	post: {
@@ -48,11 +48,13 @@ export const getProps = async (slug) => {
 		return `<img data-src="https://res.cloudinary.com/kartiknair/image/upload/w_auto,c_scale,dpr_auto/${href}" loading="lazy" alt="${text}" class="cld-responsive" />`
 	}
 
+	globalThis.Element = {};
+
 	marked.setOptions({
 		renderer,
 		highlight: function (code, lang) {
-			if (prism.languages[lang]) {
-				return prism.highlight(code, prism.languages[lang], lang)
+			if (Prism.languages[lang]) {
+				return Prism.highlight(code, Prism.languages[lang], lang)
 			} else {
 				return code
 			}

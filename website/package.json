@@ -16,7 +16,7 @@
   "dependencies": {
     "explosiv": "^2.6.3",
     "marked": "^4.0.10",
-    "prismjs": "^1.23.0"
+    "prismjs": "^1.27.0"
   },
   "devDependencies": {
     "cssnano": "^5.0.16"
